@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jonas Hitter</title>
+<meta name="description" content="Jonas Hitter, computer science master's student at TUM working on machine learning, algorithms and high-performance computing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: single reading column, left-aligned; hero pairs name with a small message-passing graph */
+  :root {
+    --bg: #f5f6fa;
+    --surface: #ffffff;
+    --fg: #161a26;
+    --muted: #5a6175;
+    --line: #dde0ea;
+    --accent: #2643c9;
+    --accent-soft: #e4e8fb;
+    --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #10131c; --surface: #171b27; --fg: #e8eaf2; --muted: #9aa1b6;
+      --line: #2a3042; --accent: #8fa3ff; --accent-soft: #1f2744; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #10131c; --surface: #171b27; --fg: #e8eaf2; --muted: #9aa1b6;
+    --line: #2a3042; --accent: #8fa3ff; --accent-soft: #1f2744; color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .wrap {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding-block: 3.5rem 4rem;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    display: grid;
+    gap: 3.25rem;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
+  .hero > div { min-width: 0; }
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 0.75rem;
+  }
+  h1 {
+    font-family: var(--font-display); font-weight: 700; font-size: clamp(2.6rem, 8vw, 4rem);
+    line-height: 1; letter-spacing: -0.02em; margin: 0 0 1rem; text-wrap: balance;
+  }
+  .lede { font-size: 1.15rem; max-width: 34rem; margin: 0 0 1.5rem; color: var(--fg); }
+  .contact { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--font-mono); font-size: 0.85rem;
+    padding: 0.45rem 0.8rem; border: 1px solid var(--line); border-radius: 999px;
+    background: var(--surface); color: var(--fg); text-decoration: none; cursor: pointer;
+  }
+  .chip:hover { border-color: var(--accent); }
+  .chip .k { color: var(--muted); }
+  .graph { width: 170px; height: 170px; max-width: 100%; }
+  .graph line { stroke: var(--line); stroke-width: 2; }
+  .graph .var { fill: var(--surface); stroke: var(--accent); stroke-width: 2; }
+  .graph .fac { fill: var(--accent); }
+  .graph .msg { fill: var(--accent); }
+  @media (max-width: 560px) {
+    .hero { grid-template-columns: 1fr; }
+    .graph { display: none; }
+  }
+
+  /* Sections */
+  section { display: grid; gap: 1.25rem; }
+  h2 {
+    font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; margin: 0;
+    padding-bottom: 0.5rem; border-bottom: 1px solid var(--line);
+  }
+  .entries { display: grid; gap: 1.75rem; }
+  .entry { display: grid; grid-template-columns: 8.5rem 1fr; gap: 1.25rem; }
+  .entry > div { min-width: 0; }
+  .when {
+    font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted);
+    font-variant-numeric: tabular-nums; padding-top: 0.2rem;
+  }
+  h3 { font-size: 1.05rem; font-weight: 600; margin: 0; }
+  .org { color: var(--accent); }
+  .entry p { margin: 0.35rem 0 0; color: var(--muted); max-width: 65ch; }
+  .tag {
+    display: inline-block; font-family: var(--font-mono); font-size: 0.72rem;
+    padding: 0.1rem 0.45rem; border-radius: 4px; background: var(--accent-soft); color: var(--accent);
+    vertical-align: 0.15em; margin-left: 0.35rem;
+  }
+  @media (max-width: 560px) {
+    .entry { grid-template-columns: 1fr; gap: 0.25rem; }
+  }
+
+  .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1.25rem 2rem; }
+  .skills h3 { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .skills ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .skills li { font-size: 0.9rem; padding: 0.2rem 0.6rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+
+  footer { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
+
+  @media (prefers-reduced-motion: reduce) { .graph .msg { display: none; } }
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">M.Sc. Computer Science · TU Munich</p>
+      <h1>Jonas Hitter</h1>
+      <p class="lede">I study computer science at TUM, focusing on machine learning, algorithms and high-performance computing. Most recently I was a software engineering intern at Google.</p>
+      <div class="contact">
+        <button class="chip" id="copy-email" type="button" title="Copy email address"><span class="k">email</span><span id="email-text">jonashitter@gmail.com</span></button>
+        <a class="chip" href="https://www.linkedin.com/in/jonas-hitter/" target="_blank" rel="noopener"><span class="k">in</span>jonas-hitter</a>
+      </div>
+    </div>
+    <svg class="graph" viewBox="0 0 170 170" aria-hidden="true">
+      <!-- a small loopy factor graph: circles are variables, squares are factors -->
+      <line x1="35" y1="35" x2="85" y2="35"/><line x1="85" y1="35" x2="135" y2="35"/>
+      <line x1="35" y1="35" x2="35" y2="85"/><line x1="135" y1="35" x2="135" y2="85"/>
+      <line x1="35" y1="85" x2="35" y2="135"/><line x1="135" y1="85" x2="135" y2="135"/>
+      <line x1="35" y1="135" x2="85" y2="135"/><line x1="85" y1="135" x2="135" y2="135"/>
+      <line id="p1" x1="85" y1="35" x2="85" y2="135"/>
+      <rect class="fac" x="79" y="29" width="12" height="12"/>
+      <rect class="fac" x="29" y="79" width="12" height="12"/>
+      <rect class="fac" x="129" y="79" width="12" height="12"/>
+      <rect class="fac" x="79" y="129" width="12" height="12"/>
+      <circle class="var" cx="35" cy="35" r="9"/><circle class="var" cx="135" cy="35" r="9"/>
+      <circle class="var" cx="35" cy="135" r="9"/><circle class="var" cx="135" cy="135" r="9"/>
+      <circle class="var" cx="85" cy="85" r="9"/>
+      <circle class="msg" r="3.5"><animateMotion dur="4s" repeatCount="indefinite" path="M35,35 H135 V135 H35 Z"/></circle>
+      <circle class="msg" r="3.5"><animateMotion dur="4s" begin="-2s" repeatCount="indefinite" path="M85,35 V135 V35"/></circle>
+    </svg>
+  </header>
+
+  <section aria-labelledby="exp">
+    <h2 id="exp">Experience</h2>
+    <div class="entries">
+      <article class="entry">
+        <div class="when">05/2026 – 08/2026</div>
+        <div>
+          <h3>Software Engineering Intern · <span class="org">Google</span></h3>
+          <p>Built an agentic pipeline in Python that uses clustering algorithms.</p>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="when">04/2025 – 09/2025</div>
+        <div>
+          <h3>Research Assistant · <span class="org">German Aerospace Center (DLR)</span></h3>
+          <p>Engineered a Python tool to test a new approximation method on tensor networks. Implemented the belief-propagation-based method and analysed the results against state-of-the-art algorithms.</p>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="when">2023 – 2024</div>
+        <div>
+          <h3>Student Tutor · <span class="org">TU Munich</span></h3>
+          <p>Led weekly tutorials for 20+ students in Data Structures and Algorithms (complexity, graph theory) and Discrete Probability Theory (stochastic processes, Markov chains). Summer semesters 2023 and 2024.</p>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="when">09/2021 – 02/2023</div>
+        <div>
+          <h3>Working Student · <span class="org">doo GmbH</span></h3>
+          <p>Built internal tools with SQL and Python to speed up processes, wrote JavaScript integrations for customers in the event business, and scoped tasks for new features.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="edu">
+    <h2 id="edu">Education</h2>
+    <div class="entries">
+      <article class="entry">
+        <div class="when">04/2025 – 09/2027</div>
+        <div>
+          <h3>M.Sc. Computer Science · <span class="org">TU Munich</span><span class="tag">expected</span></h3>
+          <p>Focus on algorithms, high-performance computing and machine learning.</p>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="when">10/2021 – 03/2025</div>
+        <div>
+          <h3>B.Sc. Computer Science · <span class="org">TU Munich</span></h3>
+          <p>Thesis: <em>Circular Belief Propagation</em>. Implemented a tensor network algorithm drawing on probability theory and graph theory.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="skills">
+    <h2 id="skills">Skills</h2>
+    <div class="skills">
+      <div>
+        <h3>Languages</h3>
+        <ul><li>Python</li><li>C / C++</li><li>Java</li><li>JavaScript / TypeScript</li><li>OCaml</li></ul>
+      </div>
+      <div>
+        <h3>Areas</h3>
+        <ul><li>Algorithms &amp; complexity</li><li>Machine learning (PyTorch)</li><li>Parallel programming</li><li>Full-stack web</li></ul>
+      </div>
+      <div>
+        <h3>Spoken</h3>
+        <ul><li>German (native)</li><li>English (C1)</li><li>Italian (B2)</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="more">
+    <h2 id="more">Also</h2>
+    <div class="entries">
+      <article class="entry">
+        <div class="when">Award</div>
+        <div>
+          <h3>Check24 Scholarship</h3>
+          <p>Qualified by building a full-stack version of Check24's "Tippspiel" campaign, with a focus on handling large amounts of data efficiently.</p>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="when">Outside work</div>
+        <div>
+          <h3>Hackathons</h3>
+          <p>Regular participant at events such as HackaTUM.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <footer>Munich · last updated November 2026</footer>
+</main>
+
+<script>
+  document.getElementById('copy-email').addEventListener('click', function () {
+    var label = this.querySelector('.k');
+    var text = document.getElementById('email-text');
+    var done = function () { label.textContent = 'copied'; setTimeout(function () { label.textContent = 'email'; }, 1600); };
+    var fallback = function () { var r = document.createRange(); r.selectNodeContents(text); var s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+    try { navigator.clipboard.writeText(text.textContent).then(done, fallback); } catch (e) { fallback(); }
+  });
+</script>
+</body>
+</html>
